@@ -14,4 +14,16 @@ export const auth = betterAuth({
   }),
   emailAndPassword: { enabled: true },
   trustedOrigins: [process.env.FRONTEND_URL],
+  advanced: {
+    useSecureCookies: true,
+    cookieOptions: {
+      session_token: {
+        attributes: {
+          sameSite: "None", // Required for cross-domain cookies
+          secure: true,
+          httpOnly: true,
+        },
+      },
+    },
+  },
 });
