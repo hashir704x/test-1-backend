@@ -14,21 +14,9 @@ export const auth = betterAuth({
   }),
   emailAndPassword: { enabled: true },
   trustedOrigins: [process.env.FRONTEND_URL],
+  baseURL: process.env.BETTER_AUTH_URL,
   advanced: {
     useSecureCookies: true,
-    // REMOVE crossSubDomainCookies if using .vercel.app and .railway.app
-    // It only works if both are on the SAME root domain (e.g. api.zaiqa.com and zaiqa.com)
-    
-    cookieOptions: {
-      session_token: {
-        attributes: {
-          sameSite: "None", 
-          secure: true,
-          httpOnly: true,
-          // 2026 FIX: Required for cross-site cookies on public suffixes
-          partitioned: true, 
-        },
-      },
-    },
+    defaultCookieAttributes: { sameSite: "none", secure: true, httpOnly: true },
   },
 });
